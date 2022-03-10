@@ -1,0 +1,35 @@
+GET http://api.foursquare.com/v3/places/search?ll=35.81483500441598,139.7039004468182&query=coffee
+Authorization: fsq3yM1Z2BCIJMPKAqPwi5dIEAVBNEM2NWy5tvFu3dooKaI=
+
+###
+GET https://api.unsplash.com/search/photos?query=cat&per_page=10&page=1&color=green&orientation=portrait'
+content-type: application/json
+Authorization: Client-ID r3C912rb7fSQSN5Za_etwLmZaVGLEzVybVAdMXF1STw
+
+
+###
+POST http://localhost:3000/api/createCoffeeStore
+content-type: application/json
+
+{
+  "id": "19",
+  "name": "test",
+  "address": "test",
+  "neighbourhood": "test",
+  "voting": 4,
+  "imgUrl": "http://localhost:3000/"
+}
+
+
+###
+GET http://localhost:3000/api/getCoffeeStoreById?id=19
+content-type: application/json
+
+
+###
+PUT http://localhost:3000/api/favouriteCoffeeStoreById
+content-type: application/json
+
+{
+  "id": "19"
+}
