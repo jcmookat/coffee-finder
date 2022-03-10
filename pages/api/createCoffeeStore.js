@@ -41,10 +41,10 @@ const createCoffeeStore = async (req, res) => {
 				res.status(400)
 				res.json({ message: 'ID is missing' })
 			}
-		} catch (err) {
-			console.error('Error creating or finding a store', err)
+		} catch (error) {
+			console.error('Error creating or finding a store', error)
 			res.status(500)
-			res.json({ message: 'Error creating or finding a store', err })
+			res.json({ message: 'Error creating or finding a store', error })
 		}
 	}
 }

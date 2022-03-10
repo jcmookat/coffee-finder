@@ -53,7 +53,7 @@ export async function getStaticPaths() {
 function CoffeeStore(initialProps) {
 	const router = useRouter()
 	const id = router.query.id
-	const [coffeeStore, setCoffeeStore] = useState(initialProps.coffeeStore)
+	const [coffeeStore, setCoffeeStore] = useState(initialProps.coffeeStore || {})
 	const {
 		state: { coffeeStores },
 	} = useContext(StoreContext)
@@ -74,7 +74,6 @@ function CoffeeStore(initialProps) {
 				}),
 			})
 			const dbCoffeeStore = response.json()
-			console.log(dbCoffeeStore)
 		} catch (error) {
 			console.error('Error creating coffee store', error)
 		}
@@ -93,10 +92,7 @@ function CoffeeStore(initialProps) {
 		} else {
 			handleCreateCoffeeStore(initialProps.coffeeStore)
 		}
-	}, [id, initialProps, initialProps.coffeeStore])
-	if (router.isFallback) {
-		return <div>Loading...</div>
-	}
+	}, [id, initialProps, initialProps.coffeeStore, coffeeStores])
 
 	const {
 		address = '',
@@ -108,7 +104,6 @@ function CoffeeStore(initialProps) {
 	const { data, error } = useSWR(`/api/getCoffeeStoreById?id=${id}`, fetcher)
 	useEffect(() => {
 		if (data && data.length > 0) {
-			console.log('data from SWR', data)
 			setCoffeeStore(data[0])
 			setVotingCount(data[0].voting)
 		}
@@ -116,6 +111,10 @@ function CoffeeStore(initialProps) {
 
 	if (error) {
 		return <div>Something went wrong retrieving coffee store page</div>
+	}
+
+	if (router.isFallback) {
+		return <div>Loading...</div>
 	}
 
 	const handleUpvoteButton = async () => {
@@ -128,7 +127,6 @@ function CoffeeStore(initialProps) {
 				}),
 			})
 			const dbCoffeeStore = await response.json()
-			console.log({ dbCoffeeStore })
 			if (dbCoffeeStore && dbCoffeeStore.length > 0) {
 				let count = votingCount + 1
 				setVotingCount(count)
@@ -157,7 +155,7 @@ function CoffeeStore(initialProps) {
 					<Image
 						src={
 							imgUrl ||
-							'https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80'
+							'https://images.unsplash.com/photo-1453614512568-c4024d13c247?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMDY4MTd8MHwxfHNlYXJjaHwxfHxjb2ZmZWUlMjBzaG9wfGVufDB8MHx8fDE2NDY5MTU5NjA&ixlib=rb-1.2.1&q=80&w=400'
 						}
 						width={600}
 						height={360}

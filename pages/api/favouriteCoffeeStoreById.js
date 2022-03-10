@@ -38,6 +38,7 @@ const favouriteCoffeeStoreById = async (req, res) => {
 				res.json({ message: 'ID is missing' })
 			}
 		} catch (error) {
+			console.error('Error upvoting coffee store', error)
 			res.status(500)
 			res.json({ message: 'Error upvoting coffee store', error })
 		}

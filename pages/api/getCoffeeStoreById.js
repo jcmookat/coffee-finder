@@ -20,9 +20,10 @@ const getCoffeeStoreById = async (req, res) => {
 			res.status(400)
 			res.json({ message: 'ID is missing' })
 		}
-	} catch (err) {
+	} catch (error) {
+		console.error('Something went wrong', error)
 		res.status(500)
-		res.json({ message: 'Something went wrong', err })
+		res.json({ message: 'Something went wrong', error })
 	}
 }
 export default getCoffeeStoreById
