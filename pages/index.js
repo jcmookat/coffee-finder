@@ -62,7 +62,7 @@ export default function Home(props) {
 				setCoffeeStoresNearMeError(error.message)
 			}
 		}
-	}, [latLong])
+	}, [latLong, dispatch])
 
 	const handleOnBannerBtnClick = () => {
 		handleTrackLocation()
@@ -86,7 +86,12 @@ export default function Home(props) {
 				)}
 
 				<div className={styles.heroImage}>
-					<Image src='/static/hero-image.png' width={700} height={400} />
+					<Image
+						src='/static/hero-image.png'
+						width={700}
+						height={400}
+						alt='Coffee Conneisseur'
+					/>
 				</div>
 				{coffeeStoresNearMe.length > 0 && (
 					<div className={styles.sectionWrapper}>
